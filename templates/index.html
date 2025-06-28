@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pañol - Herramientas</title>
+    <link rel="stylesheet" href="/static/styles/index.css">
+</head>
+<body>
+    <div class="header">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <img class="logo" src="/static/assets/logo.jpeg" alt="Logo Pañol">
+    </div>
+    <div class="main">
+        <div class="sidebar" id="sidebar">
+            <a href="/">🏠 Inicio</a>
+            <a href="/pedidos">📦 Mis Pedidos</a>
+        </div>
+
+        <div class="content">
+            <input class="search-bar" type="text" placeholder="Buscar herramienta..." id="search-bar" oninput="renderizarStock()">
+            <div class="items-container" id="items-container"></div>
+        </div>
+    </div>
+    <script src="/static/scripts/main.js"></script>
+    <script src="/static/scripts/index.js"></script>
+</body>
+</html>
