@@ -15,3 +15,4 @@ async function renderizarPedidos() {
 }
 
 renderizarPedidos()
+setInterval(renderizarPedidos, 5000)

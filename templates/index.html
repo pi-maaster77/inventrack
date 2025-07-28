@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/styles/main.css">
 </head>
 <body>
+    <div id="body">
     <div class="header">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <img class="logo" src="/static/assets/logo.jpeg" alt="Logo Pañol">
@@ -22,6 +23,42 @@
             <div class="items-container" id="items-container"></div>
         </div>
     </div>
+    </div>
+    <div id="popup" class="popup hidden">
+        <button class="close-btn" onclick="cerrarPopup()">✖</button>
+        <span class="popup-title">¡Herramienta!</span>
+        <table>
+            <tr>
+                <td>cantidad a pedir:</td>
+                <td>
+                    <span class="entrada">
+                        <input type="input" id="integer-entry" value="0">
+                        <button class="range-selector" onclick="increment()">+</button>
+                        <button class="range-selector" onclick="decrement()">-</button>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>alumno:</td>
+                <td>
+                    <span class="entrada">
+                        <input type="text" id="alumno-input">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>profesor:</td>
+                <td>
+                    <span class="entrada">
+                        <input type="text" id="profesor-input">
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <button class="submit-btn" onclick="enviarPedido()">Enviar Pedido</button>
+    </div>
+
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/index.js"></script>
 </body>
