@@ -28,7 +28,7 @@ def api_index():
     connection = startConnection()
     cursor = connection.cursor()
     if search:  
-        cursor.execute("SELECT * FROM items WHERE nombre LIKE %s", (f"%{search}%",))
+        cursor.execute("SELECT * FROM items WHERE nombre ILIKE %s", (f"%{search}%",))
     else:
         cursor.execute("SELECT * FROM items")
     rows = cursor.fetchall()

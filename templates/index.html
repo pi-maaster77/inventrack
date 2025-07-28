@@ -25,8 +25,12 @@
     </div>
     </div>
     <div id="popup" class="popup hidden">
-        <button class="close-btn" onclick="cerrarPopup()">✖</button>
-        <span class="popup-title">¡Herramienta!</span>
+        <div class="popup-close-container">
+            <button class="close-btn" onclick="cerrarPopup()" title="Cerrar">✖</button>
+        </div>
+        <div class="popup-title-container">
+            <span class="popup-title" id="herramienta-nombre">Herramienta seleccionada</span>
+        </div>
         <table>
             <tr>
                 <td>cantidad a pedir:</td>
@@ -56,7 +60,9 @@
             </tr>
         </table>
         <hr>
-        <button class="submit-btn" onclick="enviarPedido()">Enviar Pedido</button>
+        <div class="popup-submit-container">
+            <button class="submit-btn" onclick="enviarPedido()">📝 Enviar Pedido</button>
+        </div>
     </div>
 
     <script src="/static/scripts/main.js"></script>
