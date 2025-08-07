@@ -7,15 +7,16 @@ async function renderizarStock() {
 
     let html = '';
     stocks.forEach((stock, idx) => {
+        console.log(stock.nombre.replace(/ /g, "-"));
+
         html += `
         <div class="item">
-            <img src="/static/assets/${stock.imagen}" alt="${stock.nombre}"><br>
+            <img src="/static/assets/${stock.nombre.replace(/ /g, "-")}.jpg" alt="${stock.nombre}"><br>
             <button class="order" onclick="solicitar(${idx})">solicitar</button>
             <div class="tooltip">
                 <strong>${stock.nombre}</strong><br>
                 Tamaño: ${stock.tamano}<br>
-                Cantidad: ${stock.cantidad}<br>
-                Ubicación: ${stock.ubicacion}
+                Cantidad: ${stock.cantidad_disponible}<br>
             </div>
         </div>`;
     });
@@ -53,6 +54,6 @@ document.getElementById('integer-entry').addEventListener('input', function (e) 
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
-renderizarStock();
 setInterval(renderizarStock, 5000);
+renderizarStock();
 

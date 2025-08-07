@@ -71,6 +71,7 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    z-index: 20;
 }
 .search-bar {
     width: 100%;
@@ -85,6 +86,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    z-index: 30;
 }
 .item {
     position: relative;
@@ -92,31 +94,39 @@ body {
     background-color: white;
     border-radius: 12px;
     padding: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    z-index: 35; /* Asegura que el item esté sobre el tooltip */
 }
+
 .item:hover {
     transform: translateY(-5px);
 }
+
 .item img {
     width: 100%;
     height: 120px;
     object-fit: contain;
     border-radius: 8px;
 }
+
+/* Estilo de Tooltip */
 .tooltip {
     display: none;
     position: absolute;
-    top: 110%;
-    left: 0;
+    top: 100%; /* Colocamos el tooltip debajo del item */
+    left: 50%;
+    transform: translateX(-50%); /* Asegura que el tooltip esté centrado */
     width: 220px;
     background-color: #fff;
     color: #333;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    z-index: 10; /* Asegúrate de que el tooltip esté por debajo del item */
 }
+
+/* Mostrar el tooltip cuando el item se hover */
 .item:hover .tooltip {
     display: block;
 }
