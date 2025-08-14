@@ -24,21 +24,24 @@
         </div>
     </div>
     </div>
-    <div id="popup" class="popup hidden">
-        <div class="popup-close-container">
-            <button class="close-btn" onclick="cerrarPopup()" title="Cerrar">✖</button>
-        </div>
-        <div class="popup-title-container">
-            <span class="popup-title" id="herramienta-nombre">Herramienta seleccionada</span>
-        </div>
+<div id="popup" class="popup hidden">
+    <div class="popup-close-container">
+        <button class="close-btn" onclick="cerrarPopup()" title="Cerrar">✖</button>
+    </div>
+
+    <div class="popup-title-container">
+        <span class="popup-title" id="herramienta-nombre">Herramienta seleccionada</span>
+    </div>
+
+    <form id="pedido-form" onsubmit="enviarPedido(event)">
         <table>
             <tr>
                 <td>cantidad a pedir:</td>
                 <td>
                     <span class="entrada">
-                        <input type="input" id="integer-entry" value="0">
-                        <button class="range-selector" onclick="increment()">+</button>
-                        <button class="range-selector" onclick="decrement()">-</button>
+                        <input type="number" name="cantidad" id="integer-entry" value="0" min="0">
+                        <button type="button" class="range-selector" onclick="increment()">+</button>
+                        <button type="button" class="range-selector" onclick="decrement()">-</button>
                     </span>
                 </td>
             </tr>
@@ -46,7 +49,7 @@
                 <td>alumno:</td>
                 <td>
                     <span class="entrada">
-                        <input type="text" id="alumno-input">
+                        <input type="text" name="alumno" id="alumno-input" required>
                     </span>
                 </td>
             </tr>
@@ -54,15 +57,20 @@
                 <td>profesor:</td>
                 <td>
                     <span class="entrada">
-                        <input type="text" id="profesor-input">
+                        <input type="text" name="profesor" id="profesor-input" required>
                     </span>
                 </td>
             </tr>
         </table>
+
         <hr>
+
         <div class="popup-submit-container">
-            <button class="submit-btn" onclick="enviarPedido()" type="submit">📝 Enviar Pedido</button>
+            <button class="submit-btn" type="submit">📝 Enviar Pedido</button>
         </div>
+    </form>
+</div>
+
     </div>
 
     <script src="/static/scripts/main.js"></script>

@@ -7,8 +7,6 @@ async function renderizarStock() {
 
     let html = '';
     stocks.forEach((stock, idx) => {
-        console.log(stock.nombre.replace(/ /g, "-"));
-
         html += `
         <div class="item">
             <img src="/static/assets/${stock.nombre.replace(/ /g, "-")}.jpg" alt="${stock.nombre}"><br>
@@ -54,6 +52,5 @@ document.getElementById('integer-entry').addEventListener('input', function (e) 
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
-setInterval(renderizarStock, 5000);
 renderizarStock();
 

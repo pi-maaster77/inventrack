@@ -1,97 +1,69 @@
--- algunos placeholders para el proyecto
--- estos son ejemplos de cómo podrías estructurar tus consultas SQL
--- para interactuar con una base de datos en tu proyecto
+-- Insertar personas
+-- Insertar personas con los valores correctos
+INSERT INTO personas (nombre, apellido, dni, tipo_persona, confianza)
+VALUES
+('Juan', 'Pérez', '12345678', 'Alumno', 5),
+('Ana', 'Gómez', '23456789', 'Profesor', 10),
+('Carlos', 'Martínez', '34567890', 'Pañolero', 3);
 
--- Agregar unas categorías
+
+-- Insertar categorías
 INSERT INTO categorias (nombre, descripcion)
-VALUES ('Herramientas Eléctricas', 'Herramientas que funcionan con electricidad');
+VALUES
+('Herramientas', 'Herramientas de uso general'),
+('Recursos', 'Materiales y recursos de consumo'),
+('Electrónica', 'Artículos electrónicos y gadgets');
 
-INSERT INTO categorias (nombre, descripcion)
-VALUES ('Herramientas Manuales', 'Herramientas que se utilizan manualmente sin electricidad');
+-- Insertar unidades de medida
+INSERT INTO unidad_medida (nombre)
+VALUES
+('Kilogramo'),
+('Metro'),
+('Unidad'),
+('Litro');
 
-INSERT INTO categorias (nombre, descripcion)
-VALUES ('Recursos de Construcción', 'Materiales y recursos utilizados en la construcción');
-
--- Agregar unidades de medida
-INSERT INTO unidad_medida (nombre) VALUES ('unidades');
-INSERT INTO unidad_medida (nombre) VALUES ('metros cuadrados');
-
--- Agregar unas ubicaciones
+-- Insertar ubicaciones
 INSERT INTO ubicaciones (estanteria, cajon)
-VALUES ('Estantería A', 'Cajón 1');
-INSERT INTO ubicaciones (estanteria, cajon)
-VALUES ('Estantería A', 'Cajón 2'); 
-INSERT INTO ubicaciones (estanteria, cajon)
-VALUES ('Estantería B', 'Cajón 1');
-INSERT INTO ubicaciones (estanteria, cajon)
-VALUES ('Estantería B', 'Cajón 2');
+VALUES
+('Estante 1', 'Cajón A'),
+('Estante 1', 'Cajón B'),
+('Estante 2', 'Cajón A'),
+('Estante 3', 'Cajón C');
 
--- Agregar algunos items y sus particularidades
-
--- Herramientas
+-- Insertar artículos (items)
 INSERT INTO items (nombre, descripcion, cantidad_total, cantidad_disponible, categoria_id, ubicacion_id, tipo_item)
-VALUES (
-    'Taladro',
-    'Taladro eléctrico de alta potencia',
-    10,
-    10,
-    (SELECT id FROM categorias WHERE nombre = 'Herramientas Eléctricas' LIMIT 1),
-    (SELECT id FROM ubicaciones WHERE estanteria = 'Estantería A' AND cajon = 'Cajón 1' LIMIT 1),
-    'Herramienta'
-);
-INSERT INTO herramientas (item_id) VALUES ((SELECT id FROM items WHERE nombre = 'Taladro' LIMIT 1));
+VALUES
+('Martillo', 'Martillo de acero para trabajos de carpintería', 50, 45, 1, 1, 'Herramienta'),
+('Destornillador', 'Destornillador plano y cruz', 100, 95, 1, 2, 'Herramienta'),
+('Tornillos', 'Tornillos de acero de diferentes tamaños', 200, 150, 2, 1, 'Recurso'),
+('Cable HDMI', 'Cable para conexión de dispositivos HDMI', 30, 25, 3, 3, 'Recurso'),
+('Sierra de mano', 'Sierra de mano para cortar madera', 20, 15, 1, 4, 'Herramienta'),
+('Papel higiénico', 'Papel higiénico para uso general', 500, 450, 2, 2, 'Recurso');
 
-INSERT INTO items (nombre, descripcion, cantidad_total, cantidad_disponible, categoria_id, ubicacion_id, tipo_item)
-VALUES (
-    'Destornillador',
-    'Destornillador de precisión',
-    20,
-    20,
-    (SELECT id FROM categorias WHERE nombre = 'Herramientas Manuales' LIMIT 1),
-    (SELECT id FROM ubicaciones WHERE estanteria = 'Estantería A' AND cajon = 'Cajón 1' LIMIT 1),
-    'Herramienta'
-);
-INSERT INTO herramientas (item_id) VALUES ((SELECT id FROM items WHERE nombre = 'Destornillador' LIMIT 1));
+-- Insertar herramientas (relacionadas con items)
+INSERT INTO herramientas (item_id)
+VALUES
+(1),  -- Martillo
+(2),  -- Destornillador
+(5);  -- Sierra de mano
 
-INSERT INTO items (nombre, descripcion, cantidad_total, cantidad_disponible, categoria_id, ubicacion_id, tipo_item)
-VALUES (
-    'Martillo',
-    'Martillo de acero forjado',
-    15,
-    15,
-    (SELECT id FROM categorias WHERE nombre = 'Herramientas Manuales' LIMIT 1),
-    (SELECT id FROM ubicaciones WHERE estanteria = 'Estantería A' AND cajon = 'Cajón 2' LIMIT 1),
-    'Herramienta'
-);
-INSERT INTO herramientas (item_id) VALUES ((SELECT id FROM items WHERE nombre = 'Martillo' LIMIT 1));
+-- Insertar recursos (relacionados con items)
+INSERT INTO recursos (item_id, unidad_medida_id)
+VALUES
+(3, 3),  -- Tornillos, Unidad
+(4, 4),  -- Cable HDMI, Litro (aunque no es muy apropiado, solo es un ejemplo)
+(6, 1);  -- Papel higiénico, Kilogramo
 
--- Recursos
-INSERT INTO items (nombre, descripcion, cantidad_total, cantidad_disponible, categoria_id, ubicacion_id, tipo_item)
-VALUES (
-    'Tornillo Autoperforante',
-    'Tornillo para madera y metal',
-    1000,
-    1000,
-    (SELECT id FROM categorias WHERE nombre = 'Recursos de Construcción' LIMIT 1),
-    (SELECT id FROM ubicaciones WHERE estanteria = 'Estantería A' AND cajon = 'Cajón 1' LIMIT 1),
-    'Recurso'
-);
-INSERT INTO recursos (item_id, unidad_medida_id) VALUES (
-    (SELECT id FROM items WHERE nombre = 'Tornillo Autoperforante' LIMIT 1),
-    (SELECT id FROM unidad_medida WHERE nombre = 'unidades' LIMIT 1)
-);
+-- Insertar préstamos
+INSERT INTO prestamos (persona_id, fecha_prestamo, fecha_devolucion, vigente)
+VALUES
+(1, '2023-10-01', '2023-10-10', 1),  -- Juan Pérez, préstamo vigente
+(2, '2023-10-05', '2023-10-12', 1),  -- Ana Gómez, préstamo vigente
+(3, '2023-10-07', '2023-10-14', 1);  -- Carlos Martínez, préstamo vigente
 
-INSERT INTO items (nombre, descripcion, cantidad_total, cantidad_disponible, categoria_id, ubicacion_id, tipo_item)
-VALUES (
-    'Tablero de Madera',
-    'Tablero para construcción',
-    500,
-    500,
-    (SELECT id FROM categorias WHERE nombre = 'Recursos de Construcción' LIMIT 1),
-    (SELECT id FROM ubicaciones WHERE estanteria = 'Estantería A' AND cajon = 'Cajón 2' LIMIT 1),
-    'Recurso'
-);
-INSERT INTO recursos (item_id, unidad_medida_id) VALUES (
-    (SELECT id FROM items WHERE nombre = 'Tablero de Madera' LIMIT 1),
-    (SELECT id FROM unidad_medida WHERE nombre = 'metros cuadrados' LIMIT 1)
-);
+-- Insertar detalles de préstamo de artículos
+INSERT INTO detalle_prestamo_item (prestamo_id, item_id, cantidad)
+VALUES
+(1, 1, 2),  -- Juan Pérez pidió 2 martillos
+(2, 4, 1),  -- Ana Gómez pidió 1 cable HDMI
+(3, 6, 3);  -- Carlos Martínez pidió 3 paquetes de papel higiénico

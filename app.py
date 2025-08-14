@@ -1,21 +1,12 @@
 import flask 
-import psycopg2
 import os
 import dotenv
-
+import sqlite3
 
 dotenv.load_dotenv()
 
-
-
 def startConnection():
-    return psycopg2.connect(
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT", "5432"),
-        database=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD")
-    )
+    return sqlite3.connect("db")
 
 def row_to_dict(row):
     return {
@@ -26,9 +17,9 @@ def row_to_dict(row):
         "cantidad_disponible": float(row[4]),
         "categoria_id": row[5],
         "ubicacion_id": row[6],
-        "tipo_item": row[7]
+        "tipo_item": row[7],
+        "tamano": row[8]
     }
-
 
 app = flask.Flask(__name__)
 
@@ -39,63 +30,26 @@ def index():
 @app.route("/api")
 def api_index():
     search = flask.request.args.get("search")
-    try:
-        connection = startConnection()
-    except Exception:
-        connection = False
-    if connection:
-        cursor = connection.cursor()
-        if search:  
-            cursor.execute("SELECT * FROM items WHERE nombre ILIKE %s", (f"%{search}%",))
-        else:
-            cursor.execute("SELECT * FROM items")
-        rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        cursor.close()
-        connection.close()
+    connection = startConnection()
+    connection.row_factory = sqlite3.Row  # Permite acceder a columnas por nombre
+    cursor = connection.cursor()
 
-        # handshake: transformar a lista de dicts
+    if search:  
+        # Usar LIKE (SQLite no tiene ILIKE); convertir a minúsculas
+        cursor.execute(
+            "SELECT * FROM items WHERE LOWER(nombre) LIKE ?",
+            (f"%{search.lower()}%",)
+        )
+    else:
+        cursor.execute("SELECT * FROM items")
 
-        stocks = [row_to_dict(row) for row in rows]
-        return flask.jsonify(stocks)
-    else: 
-        
-        stocks = [
-            {
-                "id": 1,
-                "nombre": "destornillador punta plana 8",
-                "descripcion": "destornillador de punta plana de metrica 8",
-                "tamano": 8,
+    rows = cursor.fetchall()
+    cursor.close()
+    connection.close()
 
-                "cantidad_total": float(2),
-                "cantidad_disponible": float(1),
-                "categoria_id": 0,
-                "ubicacion_id": 0,
-                "tipo_item": 0
-            },{
-                "id": 1,
-                "nombre": "cable de aluminio",
-                "descripcion": "cable de aluminio con aislamiento. soporta hasta 3 amperes a 300 volts",
-                "tamano": 20,
-                "cantidad_total": float(2),
-                "cantidad_disponible": float(1),
-                "categoria_id": 0,
-                "ubicacion_id": 0,
-                "tipo_item": 0
-            },{
-                "id": 1,
-                "nombre": "llave francesa",
-                "tamano": 10,
-                "descripcion": "llave francesa grande",
-                "cantidad_total": float(2),
-                "cantidad_disponible": float(1),
-                "categoria_id": 0,
-                "ubicacion_id": 0,
-                "tipo_item": 0
-            }
-        ]
-        return flask.jsonify(stocks)
-
+    # Transformar a lista de dicts
+    stocks = [row_to_dict(row) for row in rows]
+    return flask.jsonify(stocks)
 
 @app.route("/api/pedidos")
 def api_pedidos():
@@ -114,6 +68,13 @@ def api_pedidos():
 def pedidos(): 
     return flask.render_template("pedidos.html")
 
+@app.route("/register/")
+def register():
+    return flask.render_template("registro.html")
 
+@app.route("/login/")
+def login():
+    return flask.render_template("login.html")
 
-app.run(port=8000, debug=True)
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
