@@ -9,11 +9,25 @@
 <body>
   <div class="form-container">
     <h2>Crear Cuenta</h2>
-    <form action="/registro" method="POST">
-      <input type="text" name="username" placeholder="Usuario" required>
-      <input type="email" name="email" placeholder="Correo Electrónico" required>
-      <input type="password" name="password" placeholder="Contraseña" required>
-      <input type="password" name="confirm_password" placeholder="Confirmar Contraseña" required>
+    <form action="/api/registro" method="POST">
+      <div id="nombre">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+      </div>
+      <div id="apellido">
+        <input type="text" name="apellido" placeholder="Apellido" required>
+      </div>
+      <div id="dni">
+        <input type="text" name="dni" placeholder="DNI" required>
+      </div>
+      <div id="password">
+        <input type="password" name="password" placeholder="Contraseña" required>
+      </div>
+      <div id="confirm_password">
+        <input type="password" name="confirm_password" placeholder="Confirmar Contraseña" required>
+      </div>
+      
+      
+      
       <button type="submit" class="submit-btn">Registrarse</button>
       <a href="/login/" class="link">¿Ya tienes cuenta? Inicia sesión</a>
     </form>
