@@ -11,20 +11,20 @@ def index():
 def api_index():
     search = request.args.get("search")
     conn = start_connection()
-    conn.row_factory = row_to_dict
+    conn.row_factory = lambda cursor, row: row_to_dict(row)
     cursor = conn.cursor()
 
     if search:
         cursor.execute(
-            "SELECT * FROM items WHERE LOWER(nombre) LIKE ?",
+            "SELECT id, nombre, descripcion, cantidad_total, cantidad_disponible, ubicacion_id, tipo_item FROM items WHERE LOWER(nombre) LIKE ?",
             (f"%{search.lower()}%",)
         )
     else:
-        cursor.execute("SELECT * FROM items")
+        cursor.execute("SELECT id, nombre, descripcion, cantidad_total, cantidad_disponible, ubicacion_id, tipo_item FROM items")
 
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
 
-    stocks = [row_to_dict(row) for row in rows]
+    stocks = rows
     return jsonify(stocks)

@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS prestamos (
     fecha_prestamo DATE NOT NULL DEFAULT (DATE('now')),  -- Fecha del préstamo
     fecha_devolucion DATE,                          -- Fecha de devolución
     vigente BOOLEAN DEFAULT 1,                      -- Indica si el préstamo sigue vigente
-    FOREIGN KEY (persona_id) REFERENCES personas(id) -- Relación con la tabla personas
+    FOREIGN KEY (persona_id) REFERENCES personas(dni) -- Relación con la tabla personas
 );
 
 -- Tabla: detalle_prestamo_item (detalle de los artículos prestados en cada préstamo)
