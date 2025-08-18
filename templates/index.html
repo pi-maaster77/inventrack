@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pañol - Herramientas</title>
     <link rel="stylesheet" href="/static/styles/base.css">
-<link rel="stylesheet" href="/static/styles/layout.css">
-<link rel="stylesheet" href="/static/styles/components.css">
-<link rel="stylesheet" href="/static/styles/items.css">
-<link rel="stylesheet" href="/static/styles/usuario.css">
+    <link rel="stylesheet" href="/static/styles/layout.css">
+    <link rel="stylesheet" href="/static/styles/components.css">
+    <link rel="stylesheet" href="/static/styles/items.css">
+    <link rel="stylesheet" href="/static/styles/usuario.css">
 </head>
 <body>
     <div id="body">
@@ -20,8 +20,8 @@
     </div>
     <div class="main">
         <div class="sidebar" id="sidebar">
-            <a href="/">🏠 Inicio</a>
-            <a href="/pedidos">📦 Mis Pedidos</a>
+            <a href="/" class="navegacion">🏠 Inicio</a>
+            <a href="/pedidos" class="navegacion">📦 Mis Pedidos</a>
         </div>
 
         <div class="content">
@@ -40,34 +40,10 @@
     </div>
 
     <form id="pedido-form" onsubmit="enviarPedido(event)">
-        <table>
-            <tr>
-                <td>cantidad a pedir:</td>
-                <td>
-                    <span class="entrada">
-                        <input type="number" name="cantidad" id="integer-entry" value="0" min="0">
-                        <button type="button" class="range-selector" onclick="increment()">+</button>
-                        <button type="button" class="range-selector" onclick="decrement()">-</button>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>alumno:</td>
-                <td>
-                    <span class="entrada">
-                        <input type="text" name="alumno" id="alumno-input" required>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>profesor:</td>
-                <td>
-                    <span class="entrada">
-                        <input type="text" name="profesor" id="profesor-input" required>
-                    </span>
-                </td>
-            </tr>
-        </table>
+            <span class="entrada">
+                <label for="integer-entry">Cantidad:</label>
+                <input type="number" name="cantidad" id="integer-entry" value="0" min="0">
+            </span>
 
         <hr>
 

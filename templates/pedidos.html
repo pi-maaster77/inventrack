@@ -15,16 +15,19 @@
     <div class="header">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <img class="logo" src="/static/assets/logo.jpeg" alt="Logo Pañol">
+
+        <span class="usuario" id="usuario"></span>
     </div>
     <div class="main">
         <div class="sidebar" id="sidebar">
-            <a href="/">🏠 Inicio</a>
-            <a href="/pedidos">📦 Mis Pedidos</a>
+            <a href="/" class="navegacion">🏠 Inicio</a>
+            <a href="/pedidos" class="navegacion">📦 Mis Pedidos</a>
         </div>
 
         <div class="content" id="content"></div>
     </div>
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/pedidos.js"></script>
+    <script src="/static/scripts/usuario.js"></script>
 </body>
 </html>
