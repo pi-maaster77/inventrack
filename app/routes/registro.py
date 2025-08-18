@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, request, jsonify
 import bcrypt
 from ..db import start_connection
 
+import secrets
+import datetime
+
 bp = Blueprint('registro', __name__)
 
 @bp.route("/register/")
@@ -26,6 +29,14 @@ def api_registro():
     cursor.execute("INSERT INTO personas (nombre, apellido, dni, passwd, tipo_persona) VALUES (?, ?, ?, ?, ?)", 
                    (nombre, apellido, dni, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'), "Alumno"))
     db.commit()
+    token = secrets.token_urlsafe(32)
+    creation_time = datetime.datetime.now()
+    expiration_time = creation_time + datetime.timedelta(days=30)
+    cursor.execute(
+        "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?, ?, ?, ?)",
+        (dni, token, creation_time, expiration_time)
+    )
+    db.commit()
     cursor.close()
 
-    return jsonify({"message": "Registro exitoso"}), 201
+    return jsonify({"message": "Registro exitoso", "token": token}), 201

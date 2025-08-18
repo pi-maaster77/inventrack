@@ -15,7 +15,7 @@
 <body>
   <div class="form-container">
     <h2>Crear Cuenta</h2>
-    <form action="/api/registro" method="POST">
+    <form onsubmit="register()">
       <div id="nombre">
         <input type="text" name="nombre" placeholder="Nombre" required>
       </div>
@@ -39,4 +39,5 @@
     </form>
   </div>
 </body>
+<script src="/static/scripts/register.js"></script>
 </html>

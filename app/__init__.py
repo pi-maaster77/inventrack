@@ -1,5 +1,5 @@
 from flask import Flask
-from .routes import main, registro, pedidos, login
+from .routes import main, registro, pedidos, login, validation
 from . import db
 
 def create_app():
@@ -15,6 +15,7 @@ def create_app():
     app.register_blueprint(registro.bp)
     app.register_blueprint(pedidos.bp)
     app.register_blueprint(login.bp)
+    app.register_blueprint(validation.bp)
 
 
     return app
