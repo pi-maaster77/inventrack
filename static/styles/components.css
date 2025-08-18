@@ -128,3 +128,32 @@
 .toggle-btn:hover {
     color: #667eea;
 }
+
+.accordion {
+    background-color: #f1f1f1;
+    color: #333;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+    border-bottom: 1px solid #ccc;
+}
+
+.accordion:hover {
+    background-color: #ddd;
+}
+
+.accordion.active {
+    background-color: #ccc;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: #fafafa;
+    border-left: 3px solid #aaa;
+}
