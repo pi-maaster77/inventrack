@@ -1,0 +1,101 @@
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.order {
+    height: 20px;
+    font-size: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #77ff77;
+    border: 0;
+    border-radius: 9999px;
+}
+.order:hover {
+    background-color: #aaffaa;
+}
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    filter: blur(0); 
+    width: 300px;
+    max-width: 90%;
+}
+.popup.active {
+    display: block;
+}
+.popup.hidden {
+    display: none;
+}
+.popup-close-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.popup-title-container {
+    text-align: center;
+    margin-bottom: 18px;
+}
+.popup-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2c3e50;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+    padding: 8px 0;
+    border-radius: 8px;
+    display: inline-block;
+    width: 90%;
+}
+.popup-submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.close-btn {
+    background: #ffdddd;
+    color: #c0392b;
+    border: none;
+    font-size: 1.3em;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.close-btn:hover {
+    background: #ffb3b3;
+    color: #a93226;
+}
+.submit-btn {
+    background: linear-gradient(90deg, #77ff77 0%, #aaffaa 100%);
+    color: #2c3e50;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    letter-spacing: 1px;
+}
+.submit-btn:hover {
+    background: linear-gradient(90deg, #aaffaa 0%, #77ff77 100%);
+    color: #145a32;
+    transform: scale(1.04);
+}

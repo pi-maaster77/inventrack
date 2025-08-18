@@ -1,0 +1,30 @@
+.usuario {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 16px;
+}
+.register {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #f4f4f9;
+    border-color: #2c3e50;
+}
+.register:hover {
+    color: #3498db;
+}
+.login {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #FFFFFF;
+    border-color: #2c3e50;
+    border: #2c3e50 solid 1px;
+    border-radius: 2px;
+}
+.login:hover {
+    color: #3498db;
+}

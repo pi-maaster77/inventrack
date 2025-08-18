@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pañol - Herramientas</title>
-    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/base.css">
+<link rel="stylesheet" href="/static/styles/layout.css">
+<link rel="stylesheet" href="/static/styles/components.css">
+<link rel="stylesheet" href="/static/styles/items.css">
+<link rel="stylesheet" href="/static/styles/usuario.css">
 </head>
 <body>
     <div id="body">
     <div class="header">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <img class="logo" src="/static/assets/logo.jpeg" alt="Logo Pañol">
+
+        <span class="usuario" id="usuario"></span>
     </div>
     <div class="main">
         <div class="sidebar" id="sidebar">
@@ -75,5 +81,7 @@
 
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/index.js"></script>
+    <script src="/static/scripts/renderizarStock.js"></script>
+    <script src="/static/scripts/usuario.js"></script>
 </body>
 </html>
