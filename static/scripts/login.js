@@ -1,3 +1,5 @@
+ document.getElementById("registro-form").addEventListener("submit", register);
+
 async function login() {
     event.preventDefault(); // Evitar el envío del formulario por defecto
     const form = document.querySelector("form");

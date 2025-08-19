@@ -11,7 +11,7 @@ bp = Blueprint('registro', __name__)
 def register():
     return render_template("registro.html")
 
-@bp.route("/api/registro", methods=["POST"])
+@bp.route("/api/registro/", methods=["POST"])
 def api_registro():
     data = request.form
     nombre = data.get("nombre")

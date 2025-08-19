@@ -3,15 +3,15 @@ async function register() {
     const form = document.querySelector("form");
     const formData = new FormData(form);
     const messageSpan = document.getElementById("message");
-    messageSpan.textContent = ""; // Limpiar mensaje previo
+    messageSpan.innerHTML = ""; // Limpiar mensaje previo
 
-    const response = await fetch("/api/registro", {
+    const response = await fetch("/api/registro/", {
         method: "POST",
         body: formData,
     });
     console.log(response);
     if (response.ok) {
-        messageSpan.textContent = "Registro exitoso. Redirigiendo al inicio de sesión...";
+        messageSpan.innerHTML = "Registro exitoso. Redirigiendo al inicio de sesión...";
         const result = await response.json();
         localStorage.setItem("token", result.token);
         setTimeout(() => {
