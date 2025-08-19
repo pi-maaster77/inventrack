@@ -1,4 +1,5 @@
 .venv
+.casa_venv
 .env
 db
 sqlite

@@ -26,7 +26,7 @@ def api_pedidos():
     """, (token,))
     rows = cursor.fetchall()
     cursor.close()
-
+    print(rows)
     prestamos = {}
     for row in rows:
         prestamo_id = row[0]

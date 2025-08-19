@@ -1,20 +1,15 @@
-let stocks = []; // Variable global para acceder a los stocks
-
-function cerrarPopup() {
-    const popup = document.getElementById('popup');
+function cerrarCarrito() {
+    const popup = document.getElementById('carrito');
     popup.classList.add('hidden');
     const body = document.getElementById('body');
     body.classList.remove('body-when-popup-showing');
 }
 
-function solicitar(idx) {
-    const herramienta = stocks[idx];
-    console.log(`Solicitando herramienta: ${herramienta.nombre}`);
-    const popup = document.getElementById('popup');
-    popup.classList.remove('hidden');
-    document.querySelector('.popup-title').textContent = `${herramienta.nombre}`;
+function cerrarCantidad() {
+    const popup = document.getElementById('cantidad');
+    popup.classList.add('hidden');
     const body = document.getElementById('body');
-    body.classList.add('body-when-popup-showing');
+    body.classList.remove('body-when-popup-showing');
 }
 
 function increment() {

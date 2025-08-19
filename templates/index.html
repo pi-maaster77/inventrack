@@ -29,36 +29,32 @@
             <div class="items-container" id="items-container"></div>
         </div>
     </div>
-    </div>
-<div id="popup" class="popup hidden">
-    <div class="popup-close-container">
-        <button class="close-btn" onclick="cerrarPopup()" title="Cerrar">✖</button>
-    </div>
+        <div id="carrito" class="popup hidden">
+            <div class="popup-close-container">
+                <button class="close-btn" onclick="cerrarCarrito()" title="Cerrar">✖</button>
+            </div>
 
-    <div class="popup-title-container">
-        <span class="popup-title" id="herramienta-nombre">Herramienta seleccionada</span>
-    </div>
+            <div class="popup-title-container">
+                <span class="popup-title" id="carrito">Herramienta seleccionada</span>
+            </div>
 
-    <form id="pedido-form" onsubmit="enviarPedido(event)">
-            <span class="entrada">
-                <label for="integer-entry">Cantidad:</label>
-                <input type="number" name="cantidad" id="integer-entry" value="0" min="0">
-            </span>
-
-        <hr>
-
-        <div class="popup-submit-container">
-            <button class="submit-btn" type="submit">📝 Enviar Pedido</button>
+            <form id="pedido-form" onsubmit="enviarPedido()">
+                <ul class="lista-pedidos" id="lista-pedidos"></ul>
+                <div class="popup-submit-container">
+                    <button class="submit-btn" type="submit">📝 Enviar Pedido</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-
     </div>
+
+    <button class="carrito-btn" onclick="toggleCarrito()">
+        <img src="/static/assets/icons/carrito.png" alt="Carrito de solicitudes">
 
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/index.js"></script>
     <script src="/static/scripts/renderizarStock.js"></script>
     <script src="/static/scripts/usuario.js"></script>  
     <script src="/static/scripts/sessions.js"></script>
+    <script src="/static/scripts/solicitar.js"></script>
 </body>
 </html>

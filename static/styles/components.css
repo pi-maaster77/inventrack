@@ -157,3 +157,7 @@
     background-color: #fafafa;
     border-left: 3px solid #aaa;
 }
+
+.solicitar-container.hidden {
+    display: none;
+}
