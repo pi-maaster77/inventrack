@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/styles/components.css">
     <link rel="stylesheet" href="/static/styles/items.css">
     <link rel="stylesheet" href="/static/styles/usuario.css">
+    <link rel="stylesheet" href="/static/styles/popup.css">
 </head>
 <body>
     <div id="body">
@@ -31,7 +32,7 @@
     </div>
         <div id="carrito" class="popup hidden">
             <div class="popup-close-container">
-                <button class="close-btn" onclick="cerrarCarrito()" title="Cerrar">✖</button>
+                <button class="close-btn" onclick="cerrarCarrito()" title="Cerrar">X</button>
             </div>
 
             <div class="popup-title-container">
@@ -47,8 +48,7 @@
         </div>
     </div>
 
-    <button class="carrito-btn" onclick="toggleCarrito()">
-        <img src="/static/assets/icons/carrito.png" alt="Carrito de solicitudes">
+    <button class="carrito-btn" onclick="toggleCarrito()">🛒</button>
 
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/index.js"></script>

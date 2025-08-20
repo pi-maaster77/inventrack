@@ -21,7 +21,7 @@ def api_pedidos():
         JOIN prestamos p ON p.persona_id = s.user_id
         JOIN detalle_prestamo_item dpi ON dpi.prestamo_id = p.id
         JOIN items i ON i.id = dpi.item_id
-        WHERE s.session_token = ?
+        WHERE s.session_token = ? AND p.vigente = 1
         ORDER BY p.fecha_prestamo DESC
     """, (token,))
     rows = cursor.fetchall()

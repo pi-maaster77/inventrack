@@ -22,11 +22,13 @@ async function renderizarPedidos() {
             </div>
         </div>`;
     });
-
+    if (prestamos.length === 0) {   
+        html = `<div class="blank"><p>No tienes préstamos activos.</p></div>`;
+    }
     document.getElementById("content").innerHTML = html;
     activarAcordeones(); // Activa el comportamiento después de renderizar
 }
-
+    
 function activarAcordeones() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {

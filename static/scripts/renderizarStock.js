@@ -7,14 +7,14 @@ async function renderizarStock() {
 
     let html = '';
     stocks.forEach((stock) => {
-        const id = stock.id; // Usar ID real
+        const id = stock.id;
         html += `
         <div class="item">
             <div class="item-cotainer">
                 <img src="/static/assets/icons/${stock.nombre.replace(/ /g, "-")}.jpg" alt="${stock.nombre}"><br>
-                <button class="order" onclick="solicitar(${id})">solicitar</button>
+                <button class="order" onclick="solicitar(${id})">Solicitar</button>
                 <div class="solicitar-container hidden" id="item-${id}">
-                    <input type="number" value="1" min="1" class="cantidad-input" id="cantidad-input-${id}">
+                    <input type="number" value="1" min="1" max="${stock.cantidad_disponible}" class="cantidad-input" id="cantidad-input-${id}">
                     <button class="agregar" onclick="anadir(${id})">Agregar</button>
                 </div>
             </div>
