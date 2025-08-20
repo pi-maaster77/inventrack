@@ -49,11 +49,11 @@ function anadir(id) {
         return;
     }
 
-    const existente = listaDeSolicitudes.find(item => item.herramientaID === id);
+    const existente = listaDeSolicitudes.find(item => item.id === id);
     if (existente) {
         existente.cantidad += cantidad;
     } else {
-        listaDeSolicitudes.push({ herramientaID: id, cantidad });
+        listaDeSolicitudes.push({ id: id, cantidad });
     }
 
     console.log(listaDeSolicitudes);
@@ -62,12 +62,12 @@ function anadir(id) {
 
 function actualizarCantidad(idx) {
     const pedido = listaDeSolicitudes[idx];
-    const input = document.getElementById(`cantidad-carrito-${pedido.herramientaID}`);
+    const input = document.getElementById(`cantidad-carrito-${pedido.id}`);
     const nuevaCantidad = parseInt(input.value, 10);
 
     if (!isNaN(nuevaCantidad) && nuevaCantidad >= 1) {
         pedido.cantidad = nuevaCantidad;
-        console.log(`Cantidad actualizada para ID ${pedido.herramientaID}: ${nuevaCantidad}`);
+        console.log(`Cantidad actualizada para ID ${pedido.id}: ${nuevaCantidad}`);
     } else {
         console.error("Cantidad inválida.");
         input.value = pedido.cantidad; // Restaurar valor anterior
@@ -81,6 +81,7 @@ function eliminarPedido(idx) {
 }
 
 async function enviarPedido() {
+    event.preventDefault();
     const token = localStorage.getItem("token");
     if (!token) {
         console.error("No se encontró el token de sesión.");
@@ -98,7 +99,7 @@ async function enviarPedido() {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log("Pedido enviado exitosamente:", data);
+        alert(`Pedido enviado exitosamente: ${data.message}`);
         listaDeSolicitudes = [];
         renderizarSolicitudes();
     } else {
@@ -111,7 +112,7 @@ async function renderizarSolicitudes() {
     listaPedidos.innerHTML = '';
 
     listaDeSolicitudes.forEach((pedido, idx) => {
-        const herramienta = stocks.find(item => item.id === pedido.herramientaID);
+        const herramienta = stocks.find(item => item.id === pedido.id);
         const nombre = herramienta ? herramienta.nombre : "Nombre no encontrado";
 
         listaPedidos.innerHTML += `<li>
@@ -120,7 +121,7 @@ async function renderizarSolicitudes() {
                 value="${pedido.cantidad}" 
                 min="1" 
                 class="cantidad-carrito" 
-                id="cantidad-carrito-${pedido.herramientaID}" 
+                id="cantidad-carrito-${pedido.id}" 
                 onchange="actualizarCantidad(${idx})">
             <button onclick="eliminarPedido(${idx})">Eliminar</button>
         </li>`;

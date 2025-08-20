@@ -11,27 +11,21 @@ bp = Blueprint('solicitar', __name__)
 def validation():
     data = request.json
     token = data.get("token")
-    toolID = data.get("id")
-    print(f"Validando token: {token}")
-
     if not token:
-        return jsonify({"valid": False, "error": "Faltan datos"}), 400
-
-    db = start_connection()
-    cursor = db.cursor()
-
-    cursor.execute("SELECT user_id, session_token, created_at, expires_at FROM sessions WHERE session_token = ?", (token,))
-    session = cursor.fetchone()
-    print(session)
-    if not session:
-        cursor.close()
-        return jsonify({"valid": False, "error": "Token inválido"}), 401
-    # Verificar si el token ha expirado. 2025-09-17 01:22:02.724883
-    expiration = datetime.datetime.strptime(session[3], "%Y-%m-%d %H:%M:%S.%f")
-    if expiration < datetime.datetime.now():
-        cursor.execute("DELETE FROM sessions WHERE session_token = ?", (token,))
-        db.commit()
-        cursor.close()
-        return jsonify({"valid": False, "error": "Token expirado"}), 401
-
-    cursor.execute("", (session[0],))
+        return jsonify({"error": "Token is required"}), 400
+    connection = start_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT user_id FROM sessions WHERE session_token = ?", (token,))
+    user = cursor.fetchone()
+    if not user:
+        return jsonify({"error": "Invalid token"}), 401
+    solicitudes = data.get("solicitudes", [])
+    if not solicitudes: 
+        return jsonify({"error": "No solicitudes provided"}), 400  
+    cursor.execute("INSERT INTO prestamos (persona_id, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?)", (user[0], datetime.datetime.now(), datetime.datetime.now() + datetime.timedelta(hours=3)))
+    prestamo_id = cursor.lastrowid
+    for solicitud in solicitudes:
+        cursor.execute("INSERT INTO detalle_prestamo_item (prestamo_id, item_id, cantidad) VALUES (?, ?, ?)", (prestamo_id, solicitud['id'], solicitud['cantidad']))
+    connection.commit()
+    cursor.close()
+    return jsonify({"message": "Solicitud realizada con éxito"}), 200        
