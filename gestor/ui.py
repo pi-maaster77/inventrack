@@ -15,7 +15,7 @@ def run_app():
     style.configure("TFrame", background="#f4f6fa")
     style.configure("Treeview", font=("Segoe UI", 11), rowheight=28, fieldbackground="#ffffff", background="#ffffff", foreground="#222")
     style.configure("Treeview.Heading", font=("Segoe UI", 12, "bold"), background="#dee2e6", foreground="#222")
-    style.map("Treeview", background=[("selected", "#cce5ff")])
+    style.map("Treeview", background=[("selected", "#cce5ff")], foreground=[("selected", "#222")])
     style.configure("TButton", font=("Segoe UI", 11), padding=6, background="#007bff", foreground="#fff")
     style.map("TButton", background=[("active", "#0056b3")])
     style.configure("TLabel", font=("Segoe UI", 11), background="#f4f6fa")
