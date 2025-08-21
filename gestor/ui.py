@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from .articulos import cargar_articulos, agregar_articulo, editar_articulo, eliminar_articulo
 from .prestamos import cargar_prestamos, registrar_prestamo, devolver_prestamo, ver_detalle_prestamo
-
+from .httppath import httppath
 def run_app():
     root = tk.Tk()
     root.title("Administrador de Pañol")
@@ -38,6 +39,7 @@ def run_app():
     lbl_titulo.pack(pady=(10,0))
 
     def abrir_ventana_agregar():
+        from tkinter import messagebox
         ventana_agregar = tk.Toplevel(root)
         ventana_agregar.title("Agregar artículo")
         ventana_agregar.geometry("400x220")
@@ -55,13 +57,59 @@ def run_app():
         entry_cantidad = tk.Entry(ventana_agregar, font=("Segoe UI", 11), width=22)
         entry_cantidad.grid(row=2, column=1, padx=10, pady=10)
 
+        # Imagen
+        tk.Label(ventana_agregar, text="Imagen:", font=("Segoe UI", 11), bg="#f4f6fa").grid(row=3, column=0, padx=10, pady=10, sticky="e")
+        entry_img = tk.Entry(ventana_agregar, font=("Segoe UI", 11), width=22)
+        entry_img.grid(row=3, column=1, padx=10, pady=10)
+
+        def buscar_imagen():
+            import subprocess
+            from gestor.downloader import descargar_pngs
+            nombre = entry_nombre.get()
+            if not nombre:
+                messagebox.showwarning("Nombre vacío", "Primero ingresa el nombre del artículo")
+                return
+            descargar_pngs(nombre, nombre)
+            messagebox.showinfo("Imagen", f"Imagen descargada para '{nombre}' en static/assets/icons/")
+
+        def seleccionar_imagen():
+            from tkinter import filedialog
+            ruta = filedialog.askopenfilename(title="Selecciona imagen", filetypes=[("Imágenes", "*.png;*.jpg;*.jpeg")])
+            if ruta:
+                import shutil
+                import os
+
+                nombre = entry_nombre.get()
+                if not nombre:
+                    messagebox.showwarning("Nombre vacío", "Primero ingresa el nombre del artículo")
+                    return
+                httpnombre = httppath(nombre)
+                destino = os.path.join("static/assets/icons", httpnombre + ".png")
+                shutil.copy(ruta, destino)
+                entry_img.delete(0, tk.END)
+                entry_img.insert(0, destino)
+                messagebox.showinfo("Imagen", f"Imagen copiada a {destino}")
+
+        btn_buscar = ttk.Button(ventana_agregar, text="Buscar en web", command=buscar_imagen)
+        btn_buscar.grid(row=4, column=0, padx=10, pady=5)
+        btn_seleccionar = ttk.Button(ventana_agregar, text="Seleccionar local", command=seleccionar_imagen)
+        btn_seleccionar.grid(row=4, column=1, padx=10, pady=5)
+
         def agregar_y_cerrar():
             from .articulos import agregar_articulo
+            img_path = entry_img.get().strip()
+            nombre = entry_nombre.get().strip()
+            if not img_path:
+                # Si no hay ruta, buscar imagen automáticamente
+                from gestor.downloader import descargar_pngs
+                descargar_pngs(nombre, nombre)
+                img_path = f"static/assets/icons/{nombre}.png"
+            # Se puede guardar la ruta de la imagen en la base de datos si se desea
             agregar_articulo(entry_nombre, combo_tipo, entry_cantidad, tree_articulos)
             ventana_agregar.destroy()
 
         btn_guardar = ttk.Button(ventana_agregar, text="Agregar", command=agregar_y_cerrar)
-        btn_guardar.grid(row=3, column=0, columnspan=2, pady=18)
+        btn_guardar.grid(row=5, column=0, columnspan=2, pady=18)
 
     btn_frame = tk.Frame(frame_articulos, bg="#f4f6fa")
     btn_frame.pack(pady=5)

@@ -50,6 +50,25 @@ def devolver_prestamo(tree_prestamos):
         cargar_prestamos(tree_prestamos)
 
 def ver_detalle_prestamo(event, tree_prestamos, root):
+    def actualizar_detalle():
+        # Limpiar y recargar la tabla de detalles
+        for row in tree_detalle.get_children():
+            tree_detalle.delete(row)
+        cursor.execute("""
+            SELECT dpi.id, i.nombre, dpi.cantidad, dpi.condicion
+            FROM detalle_prestamo_item dpi
+            JOIN items i ON dpi.item_id = i.id
+            WHERE dpi.prestamo_id = ?
+        """, (prestamo_id,))
+        for row in cursor.fetchall():
+            tree_detalle.insert("", tk.END, values=row)
+        # Repetir cada 5 segundos
+        detalle_window.after(5000, actualizar_detalle)
+
+    def actualizar_prestamos():
+        cargar_prestamos(tree_prestamos)
+        tree_prestamos.after(5000, actualizar_prestamos)
+
     selected_item = tree_prestamos.focus()
     if not selected_item:
         return
@@ -76,15 +95,8 @@ def ver_detalle_prestamo(event, tree_prestamos, root):
     tree_detalle.configure(yscroll=scrollbar.set)
     scrollbar.pack(side="right", fill="y")
 
-    cursor.execute("""
-        SELECT dpi.id, i.nombre, dpi.cantidad, dpi.condicion
-        FROM detalle_prestamo_item dpi
-        JOIN items i ON dpi.item_id = i.id
-        WHERE dpi.prestamo_id = ?
-    """, (prestamo_id,))
-    for row in cursor.fetchall():
-        item_id, articulo, cantidad, condicion = row
-        tree_detalle.insert("", tk.END, values=row)
+    actualizar_detalle()
+    actualizar_prestamos()
 
     edit_frame = tk.Frame(detalle_window, bg="#f4f6fa")
     edit_frame.pack(fill="x", pady=10)

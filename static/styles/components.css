@@ -184,3 +184,12 @@
 .agregar:hover {
     background: #2680e6;
 }
+
+
+.img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
